@@ -8,6 +8,7 @@ use App\Lizt;
 
 class ListController extends Controller
 {
+  //Pemanggilan semua data
     public function index()
     {
       $lists = Lizt::get();
@@ -15,16 +16,19 @@ class ListController extends Controller
     }
 
     public function add()
-    {//curiga naon kampret -_- loba error
+    {
+      //Menampilkan file add.blade.php yg berada di folder view/list
       return view('list.add');
     }
 
     public function edit($id = null)
     {
-      if(is_null($id)){
+      //Jika $id =null maka redirect route /list
+      if(is_null($id))
+      {
         return redirect('/list');
       }
-
+      //Mencari data dari id untuk kita edit
       $list = Lizt::find((int)$id);
 
       return view('list.edit', ['list' => $list]);
@@ -32,6 +36,7 @@ class ListController extends Controller
 
     public function store(Request $request)
     {
+      //Menambah data dengan field nama
       $list = new Lizt;
 
       $list->name = $request->input('name');
@@ -43,8 +48,9 @@ class ListController extends Controller
 
     public function update(Request $request)
     {
+      //Penamaan List dan mencari id
       $list = Lizt::find($request->input('id'));
-
+      //Mengupdate data field name
       $list->name = $request->input('name');
 
       if($list->save()){
@@ -60,7 +66,7 @@ class ListController extends Controller
 
       $list = Lizt::find((int)$id);
       $list->delete();
-      
+
 
       return redirect('/list');
     }
