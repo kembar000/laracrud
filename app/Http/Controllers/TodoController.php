@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Lizt;
 use App\Todo;
 
 class TodoController extends Controller
@@ -16,16 +17,18 @@ class TodoController extends Controller
 
     public function add()
     {
-      return view('todo.add');
+      $lists = Lizt::get();
+      return view('todo.add', ['lists' => $lists]);
     }
 
     public function edit($id=null)
     {
+      $lists = Lizt::get();
       if (is_null($id)) {
         redirect('/todo');
       }
       $todos=Todo::find((int)$id);
-      return view('todo.edit',['todos'=>$todos]);
+      return view('todo.edit',['todos'=>$todos, 'lists' => $lists]);
     }
 
     public function store(Request $request)

@@ -10,7 +10,12 @@
         </div>
         <div class="form-group">
           <label for="">List ID</label>
-          <input type="text" class="form-control" id="" placeholder="" name="list_id">
+          <select class="form-control" name="list_id">
+            <option value="">Pilih daftar</option>
+            @foreach($lists as $list)
+              <option value="{{$list->id}}">{{$list->name}}</option>
+            @endforeach
+          </select>
         </div>
         <button type="submit" class="btn btn-default">
           Save

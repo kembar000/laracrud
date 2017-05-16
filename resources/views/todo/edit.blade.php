@@ -11,7 +11,16 @@
         </div>
         <div class="form-group">
           <label for="">List ID</label>
-          <input type="text" class="form-control" id="" placeholder="" name="list_id" value="{{$todos->list_id}}">
+          <select class="form-control" name="list_id">
+            <option value="">Pilih daftar</option>
+            @foreach($lists as $list)
+              @if($list->id === $todos->list_id)
+                <option value="{{$list->id}}" selected="true">{{$list->name}}</option>
+              @else
+                <option value="{{$list->id}}">{{$list->name}}</option>
+              @endif
+            @endforeach
+          </select>
         </div>
         <button type="submit" class="btn btn-default">
           Save
